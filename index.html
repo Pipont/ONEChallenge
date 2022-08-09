@@ -8,7 +8,6 @@
     <link rel="stylesheet" href="styles.css" />
     <title>Encriptador ALURA</title>
   </head>
-
   <body>
     <header>
       <img id="logo" src="resources/Logo.png" />
@@ -24,7 +23,7 @@
         ></textarea>
         <p id="alert">
           <img src="resources/bi_exclamation-circle-fill.png" />
-          Solo letras minisculas y mayusculas
+          Solo letras minúsculas y mayúsculas
         </p>
         <div class="botones">
           <button id="btnencriptar" class="botones__flex">Encriptar</button>
@@ -59,7 +58,7 @@
         let nms = document.getElementById("Nomessage");
         let pms = document.getElementById("Putmessage");
         if (validar(inputmessage)) {
-          alert("No hay texto")
+          alert("No hay texto");
         } else {
           img.style.visibility = "hidden";
           nms.style.visibility = "hidden";
@@ -107,7 +106,20 @@
 
       btnencriptar.onclick = reemplazar;
       btndesencriptar.onclick = desencriptar;
-      btncopiar.onclick=copy;
+      btncopiar.onclick = copy;
+
+      function validKey(k) {
+        var keyNum = 0;
+        if (typeof k.charCode == "undefined") {
+          keyNum = k.keyCode;
+        } else {
+          keyNum = k.charCode;
+        }
+        if (!(keyNum >= 65 && keyNum <= 90)) {
+          return false;
+        }
+        return true;
+      }
     </script>
   </body>
 </html>
