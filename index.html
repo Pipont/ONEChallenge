@@ -1,125 +1,127 @@
 <!DOCTYPE html>
 <html lang="es">
-  <head>
-    <meta charset="UTF-8" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="stylesheet" href="resetstyles.css" />
-    <link rel="stylesheet" href="styles.css" />
-    <title>Encriptador ALURA</title>
-  </head>
-  <body>
-    <header>
-      <img id="logo" src="resources/Logo.png" />
-    </header>
-    <main class="contenedores">
-      <section class="contenedor_texto">
-        <textarea
-          class="contenedor__input"
-          id="texto"
-          cols="30"
-          rows="10"
-          placeholder="Ingrese texto aqui"
-        ></textarea>
-        <p id="alert">
-          <img src="resources/bi_exclamation-circle-fill.png" />
-          Solo letras minúsculas y mayúsculas
+
+<head>
+  <meta charset="UTF-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="stylesheet" href="resetstyles.css" />
+  <link rel="stylesheet" href="styles.css" />
+  <title>Encriptador ALURA</title>
+</head>
+
+<body>
+  <header>
+    <img id="logo" src="resources/Logo.png" />
+  </header>
+  <main class="contenedores">
+    <section class="contenedor_texto">
+      <textarea class="contenedor__input" id="texto" cols="30" rows="10" placeholder="Ingrese texto aqui"></textarea>
+      <p id="alert">
+        <img src="resources/bi_exclamation-circle-fill.png" />
+        Solo letras minúsculas y mayúsculas
+      </p>
+      <div class="botones">
+        <button id="btnencriptar" class="botones__flex">Encriptar</button>
+        <button id="btndescifrar" class="botones__flex">Descifrar</button>
+      </div>
+    </section>
+    <section class="contenedor_tarjeta">
+      <img id="muneco" src="resources/Muñeco.svg" />
+      <textarea id="output"></textarea>
+      <div>
+        <p id="Nomessage">Ningún mensaje fue encontrado</p>
+        <p id="Putmessage">
+          Ingresa el texto que desees encriptar o desencriptar.
         </p>
-        <div class="botones">
-          <button id="btnencriptar" class="botones__flex">Encriptar</button>
-          <button id="btndescifrar" class="botones__flex">Descifrar</button>
-        </div>
-      </section>
-      <section class="contenedor_tarjeta">
-        <img id="muneco" src="resources/Muñeco.svg" />
-        <textarea id="output"></textarea>
-        <div>
-          <p id="Nomessage">Ningún mensaje fue encontrado</p>
-          <p id="Putmessage">
-            Ingresa el texto que desees encriptar o desencriptar.
-          </p>
-        </div>
-        <button id="btncopiar">Copiar</button>
-      </section>
-    </main>
-    <footer>
-      <p class="copyright">Pedro Soto Barboza &copy 2022</p>
-    </footer>
-    <script>
-      let inputmessage = document.getElementById("texto");
+      </div>
+      <button id="btncopiar">Copiar</button>
+    </section>
+  </main>
+  <footer>
+    <p class="copyright">Pedro Soto Barboza &copy 2022</p>
+  </footer>
+  <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+  <script>
+    let inputmessage = document.getElementById("texto");
+    let outputmessage = document.getElementById("output");
+    let btnencriptar = document.getElementById("btnencriptar");
+    let btndesencriptar = document.getElementById("btndescifrar");
+    let btncopiar = document.getElementById("btncopiar");
+    outputmessage.style.visibility = "hidden";
+
+    function ocultarelementos() {
+      let img = document.getElementById("muneco");
+      let nms = document.getElementById("Nomessage");
+      let pms = document.getElementById("Putmessage");
+      if (validar(inputmessage)) {
+        swal({
+          title: "Error",
+          text: "No hay texto",
+          icon: "warning"
+        })
+      } else {
+        img.style.visibility = "hidden";
+        nms.style.visibility = "hidden";
+        pms.style.visibility = "hidden";
+        mostrarelementos();
+      }
+    }
+
+    function mostrarelementos() {
       let outputmessage = document.getElementById("output");
-      let btnencriptar = document.getElementById("btnencriptar");
-      let btndesencriptar = document.getElementById("btndescifrar");
-      let btncopiar = document.getElementById("btncopiar");
-      outputmessage.style.visibility = "hidden";
+      outputmessage.style.visibility = "visible";
+      btncopiar.style.visibility = "visible";
+    }
 
-      function ocultarelementos() {
-        let img = document.getElementById("muneco");
-        let nms = document.getElementById("Nomessage");
-        let pms = document.getElementById("Putmessage");
-        if (validar(inputmessage)) {
-          alert("No hay texto");
-        } else {
-          img.style.visibility = "hidden";
-          nms.style.visibility = "hidden";
-          pms.style.visibility = "hidden";
-          mostrarelementos();
-        }
+    function validar(mensaje) {
+      return mensaje.value == "";
+    }
+
+    function reemplazar() {
+      let mensaje = inputmessage.value;
+      var e = mensaje.replaceAll("e", "enter");
+      var i = e.replaceAll("i", "imes");
+      var a = i.replaceAll("a", "ai");
+      var u = a.replaceAll("u", "ufat");
+      var o = u.replaceAll("o", "ober");
+      ocultarelementos();
+      outputmessage.value = o;
+    }
+
+    function desencriptar() {
+      var mensaje = inputmessage.value;
+      var reemplazo1 = mensaje.replaceAll("enter", "e");
+      var reemplazo2 = reemplazo1.replaceAll("imes", "i");
+      var reemplazo3 = reemplazo2.replaceAll("ai", "a");
+      var reemplazo4 = reemplazo3.replaceAll("ufat", "u");
+      var reemplazo5 = reemplazo4.replaceAll("ober", "o");
+      ocultarelementos();
+      outputmessage.value = reemplazo5;
+    }
+
+    function copy() {
+      let mensaje = outputmessage.value;
+      navigator.clipboard.writeText(mensaje);
+    }
+
+    btnencriptar.onclick = reemplazar;
+    btndesencriptar.onclick = desencriptar;
+    btncopiar.onclick = copy;
+
+    function validKey(k) {
+      var keyNum = 0;
+      if (typeof k.charCode == "undefined") {
+        keyNum = k.keyCode;
+      } else {
+        keyNum = k.charCode;
       }
-
-      function mostrarelementos() {
-        let outputmessage = document.getElementById("output");
-        outputmessage.style.visibility = "visible";
-        btncopiar.style.visibility = "visible";
+      if (!(keyNum >= 65 && keyNum <= 90)) {
+        return false;
       }
+      return true;
+    }
+  </script>
+</body>
 
-      function validar(mensaje) {
-        return mensaje.value == "";
-      }
-
-      function reemplazar() {
-        let mensaje = inputmessage.value;
-        var e = mensaje.replaceAll("e", "enter");
-        var i = e.replaceAll("i", "imes");
-        var a = i.replaceAll("a", "ai");
-        var u = a.replaceAll("u", "ufat");
-        var o = u.replaceAll("o", "ober");
-        ocultarelementos();
-        outputmessage.value = o;
-      }
-
-      function desencriptar() {
-        var mensaje = inputmessage.value;
-        var reemplazo1 = mensaje.replaceAll("enter", "e");
-        var reemplazo2 = reemplazo1.replaceAll("imes", "i");
-        var reemplazo3 = reemplazo2.replaceAll("ai", "a");
-        var reemplazo4 = reemplazo3.replaceAll("ufat", "u");
-        var reemplazo5 = reemplazo4.replaceAll("ober", "o");
-        ocultarelementos();
-        outputmessage.value = reemplazo5;
-      }
-
-      function copy() {
-        let mensaje = outputmessage.value;
-        navigator.clipboard.writeText(mensaje);
-      }
-
-      btnencriptar.onclick = reemplazar;
-      btndesencriptar.onclick = desencriptar;
-      btncopiar.onclick = copy;
-
-      function validKey(k) {
-        var keyNum = 0;
-        if (typeof k.charCode == "undefined") {
-          keyNum = k.keyCode;
-        } else {
-          keyNum = k.charCode;
-        }
-        if (!(keyNum >= 65 && keyNum <= 90)) {
-          return false;
-        }
-        return true;
-      }
-    </script>
-  </body>
 </html>
